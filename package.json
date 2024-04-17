@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/AllenMRbai/bayberry/issues"
   },
-  "homepage": "https://github.com/AllenMRbai/bayberry#readme"
+  "homepage": "https://github.com/AllenMRbai/bayberry#readme",
+  "devDependencies": {
+    "rollup": "^4.14.3"
+  }
 }
