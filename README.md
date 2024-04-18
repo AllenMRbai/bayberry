@@ -1,4 +1,4 @@
-# bayberry
+# baystate
 
 a small, simple react state-management library.
 
@@ -32,7 +32,7 @@ export const fetchUser = async () => {
 };
 ```
 
-## then bind your component
+## 组件内访问 store
 
 ```jsx
 import { useEffect } from "react";
