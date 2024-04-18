@@ -1,5 +1,6 @@
 import { useDebugValue } from "react";
 import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
+import { useShallow } from "./use-shallow";
 
 export const create = <TState extends Record<string, any>>(
   initialState: TState
@@ -37,7 +38,7 @@ export const create = <TState extends Record<string, any>>(
         this.listen,
         this.get,
         this.getInitialState,
-        selector || defaultSelector
+        useShallow(selector || defaultSelector)
       );
 
       useDebugValue(partialState);
