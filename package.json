@@ -1,6 +1,6 @@
 {
   "name": "baystate",
-  "version": "0.0.4",
+  "version": "0.0.3",
   "description": "simple store",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,7 +23,7 @@
     "major": "npm version major",
     "minor": "npm version minor",
     "patch": "npm version patch",
-    "pub": "npm publish --access=public"
+    "pub": "npm run build & npm publish --access=public"
   },
   "repository": {
     "type": "git",
