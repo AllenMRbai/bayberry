@@ -1,0 +1,43 @@
+README.md
+
+# source
+src
+tests
+
+# test
+coverage
+
+
+# dependencies
+node_modules
+package-lock.json
+pnpm-lock.yaml
+
+
+# dev
+.vscode
+.vscodeignore
+
+# config
+tsconfig.json
+.editorconfig
+.eslintignore
+.eslintrc.js
+.gitignore
+.huskyrc
+.prettierignore
+.prettierrc.js
+babel.config.js
+commitlint.config.js
+rollup.config.mjs
+vitest.config.js
+
+
+# production
+docs-dist
+build.sh
+deploy-docs.sh
+
+# git repo
+adfeRepoSave
+
