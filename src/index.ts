@@ -1,42 +1,48 @@
-import { useSyncExternalStore } from "react";
+import { useDebugValue } from "react";
+import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
 
-type Listener = () => void;
-
-export const create = <StateT extends Record<string, any>>(
-  initialState: StateT
+export const create = <TState extends Record<string, any>>(
+  initialState: TState
 ) => {
+  type Listener = (state: TState, prevState: TState) => void;
+  type Selector = (state: TState) => Partial<TState>;
   let state = initialState;
-  let listeners = [] as Listener[];
+  const listeners: Set<Listener> = new Set();
 
-  const get = () => state;
+  class BayStore {
+    readonly get = () => state;
 
-  const set = (st: any) => {
-    const newState = typeof st == "function" ? st(state) : st;
-    state = { ...state, ...newState };
+    readonly set = (st: Partial<TState> | Selector) => {
+      const nextState = typeof st == "function" ? st(state) : st;
+      const previousState = state;
+      state = Object.assign({}, state, nextState);
 
-    listeners.forEach((listener) => listener());
-  };
-
-  const subscribe = (listener: Listener) => {
-    listeners.push(listener);
-
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
+      listeners.forEach((listener) => listener(state, previousState));
     };
-  };
 
-  const getInitialState = () => initialState;
+    readonly listen = (listener: Listener) => {
+      listeners.add(listener);
 
-  const use = () => {
-    return useSyncExternalStore(subscribe, get, getInitialState);
-  };
+      // Unsubscribe
+      return () => listeners.delete(listener);
+    };
 
-  const store = {
-    get,
-    set,
-    subscribe,
-    use,
-  };
+    readonly getInitialState = () => initialState;
 
-  return store;
+    readonly use = (selector?: any, equalityFn?: any) => {
+      const partialState = useSyncExternalStoreWithSelector(
+        this.listen,
+        this.get,
+        this.getInitialState,
+        selector,
+        equalityFn
+      );
+
+      useDebugValue(partialState);
+
+      return partialState;
+    };
+  }
+
+  return new BayStore();
 };

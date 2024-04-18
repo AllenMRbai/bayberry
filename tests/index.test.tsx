@@ -9,7 +9,7 @@ const store = create({
 test("has correct properties", () => {
   expect(typeof store.get === "function").toBe(true);
   expect(typeof store.set === "function").toBe(true);
-  expect(typeof store.subscribe === "function").toBe(true);
+  expect(typeof store.listen === "function").toBe(true);
   expect(typeof store.use === "function").toBe(true);
 });
 
@@ -20,7 +20,7 @@ test("can get correct states", () => {
 
 test("can response new change", () => {
   let num = 0;
-  const unsubscribe = store.subscribe(() => {
+  const unsubscribe = store.listen(() => {
     num += 1;
     expect(num).toBe(1);
     expect(store.get().userName).toBe("Tom");
