@@ -2,10 +2,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   resolve: {
-    alias: [{ find: /^bayberry-store$/, replacement: "../src/index.ts" }],
+    alias: [{ find: /^baystate$/, replacement: "../src/index.ts" }],
   },
   test: {
-    name: "bayberry-store",
+    name: "baystate",
     // Keeping globals to true triggers React Testing Library's auto cleanup
     // https://vitest.dev/guide/migration.html
     globals: true,

@@ -1,5 +1,5 @@
 {
-  "name": "bayberry-store",
+  "name": "baystate",
   "version": "0.0.1",
   "description": "simple store",
   "main": "./dist/index.js",

@@ -3,13 +3,13 @@
 a small, simple react state-management library.
 
 ```bash
-npm install bayberry-store # TODO 待定
+npm install baystate # TODO 待定
 ```
 
 ## 创建 store
 
 ```jsx
-import { create } from "bayberry-store";
+import { create } from "baystate";
 
 export const countStore = create({
   count: 0,

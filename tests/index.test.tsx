@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { create } from "bayberry-store";
+import { create } from "baystate";
 
 const store = create({
   userName: "Jack",

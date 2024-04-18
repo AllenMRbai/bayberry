@@ -14,7 +14,7 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "paths": {
-      "bayberry-store": ["./src/index.ts"]
+      "baystate": ["./src/index.ts"]
     }
   },
   "include": ["src/**/*", "tests/**/*"],
