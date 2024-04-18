@@ -4,15 +4,16 @@ import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/w
 export const create = <TState extends Record<string, any>>(
   initialState: TState
 ) => {
+  type PartialTState = Partial<TState>;
   type Listener = (state: TState, prevState: TState) => void;
-  type Selector = (state: TState) => Partial<TState>;
+  type Selector = (state: TState) => PartialTState;
   let state = initialState;
   const listeners: Set<Listener> = new Set();
 
   class BayStore {
     readonly get = () => state;
 
-    readonly set = (st: Partial<TState> | Selector) => {
+    readonly set = (st: PartialTState | Selector) => {
       const nextState = typeof st == "function" ? st(state) : st;
       const previousState = state;
       state = Object.assign({}, state, nextState);
@@ -29,13 +30,14 @@ export const create = <TState extends Record<string, any>>(
 
     readonly getInitialState = () => initialState;
 
-    readonly use = (selector?: any, equalityFn?: any) => {
+    readonly use = (selector?: Selector) => {
+      const defaultSelector = (state: TState) => state;
+
       const partialState = useSyncExternalStoreWithSelector(
         this.listen,
         this.get,
         this.getInitialState,
-        selector,
-        equalityFn
+        selector || defaultSelector
       );
 
       useDebugValue(partialState);
