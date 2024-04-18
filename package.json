@@ -1,10 +1,25 @@
 {
-  "name": "bayberry",
+  "name": "bayberry-store",
   "version": "0.0.1",
   "description": "simple store",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest --ui --coverage",
+    "prebuild": "shx rm -rf dist",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -20,8 +35,20 @@
   },
   "homepage": "https://github.com/AllenMRbai/bayberry#readme",
   "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.2.79",
+    "@vitest/coverage-v8": "^1.5.0",
+    "@vitest/ui": "^1.5.0",
+    "jsdom": "^24.0.0",
     "react": "^18.2.0",
-    "rollup": "^4.14.3"
+    "rollup": "^4.14.3",
+    "shx": "^0.3.4",
+    "tslib": "^2.6.2",
+    "typescript": "^5.4.5",
+    "vitest": "^1.5.0"
+  },
+  "peerDependencies": {
+    "@types/react": ">=16.8",
+    "react": ">=16.8"
   }
 }

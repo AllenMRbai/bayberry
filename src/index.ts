@@ -6,7 +6,7 @@ export const create = <StateT extends Record<string, any>>(
   initialState: StateT
 ) => {
   let state = initialState;
-  const listeners = [] as Listener[];
+  let listeners = [] as Listener[];
 
   const get = () => state;
 
@@ -21,7 +21,7 @@ export const create = <StateT extends Record<string, any>>(
     listeners.push(listener);
 
     return () => {
-      listeners.filter((l) => l !== listener);
+      listeners = listeners.filter((l) => l !== listener);
     };
   };
 

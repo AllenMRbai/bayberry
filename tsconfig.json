@@ -11,7 +11,11 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "noEmit": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "rootDir": "./src",
+    "paths": {
+      "bayberry-store": ["./src/index.ts"]
+    }
   },
   "include": ["src/**/*", "tests/**/*"],
   "exclude": ["node_modules", "dist"]
