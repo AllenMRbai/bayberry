@@ -22,6 +22,8 @@ export const shallowCompare = (
   objA: Record<string, any> | undefined,
   objB: Record<string, any> | undefined
 ) => {
+  if (Object.is(objA, objB)) return true;
+
   if (
     typeof objA !== "object" ||
     objA === null ||

@@ -20,7 +20,7 @@ test("can get correct states", () => {
 
 test("can response new change", () => {
   let num = 0;
-  const unsubscribe = store.listen(() => {
+  const unListen = store.listen(() => {
     num += 1;
     expect(num).toBe(1);
     expect(store.get().userName).toBe("Tom");
@@ -32,7 +32,7 @@ test("can response new change", () => {
     userAge: 20,
   });
 
-  unsubscribe();
+  unListen();
 
   store.set({
     userName: "Kitty",
@@ -41,4 +41,42 @@ test("can response new change", () => {
 
   expect(store.get().userName).toBe("Kitty");
   expect(store.get().userAge).toBe(22);
+});
+
+test("test error use set", () => {
+  let snap = store.get();
+
+  const unListen = store.listen(() => {
+    expect(snap !== store.get()).toBe(true);
+    expect(snap.userName).toBe("pig");
+    expect(store.get().userName).toBe("pig");
+  });
+
+  store.set((state) => {
+    state.userName = "pig";
+    return state;
+  });
+
+  unListen();
+});
+
+test("test immer", () => {
+  store.set({
+    userName: "Kitty",
+    userAge: 22,
+  });
+
+  let snap = store.get();
+
+  const unListen = store.listen(() => {
+    expect(snap !== store.get()).toBe(true);
+    expect(snap.userName).toBe("Kitty");
+    expect(store.get().userName).toBe("duck");
+  });
+
+  store.immerSet((state) => {
+    state.userName = "duck";
+  });
+
+  unListen();
 });

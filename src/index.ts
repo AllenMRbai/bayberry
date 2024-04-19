@@ -1,6 +1,7 @@
 import { useDebugValue } from "react";
 import { useSyncExternalStoreWithSelector } from "use-sync-external-store/shim/with-selector";
 import { useShallow } from "./use-shallow";
+import { produce } from "immer";
 
 export const create = <TState extends Record<string, any>>(
   initialState: TState
@@ -22,10 +23,15 @@ export const create = <TState extends Record<string, any>>(
       listeners.forEach((listener) => listener(state, previousState));
     };
 
+    readonly immerSet = (st: (state: TState) => void) => {
+      const nextState = produce(state, st);
+      this.set(nextState);
+    };
+
     readonly listen = (listener: Listener) => {
       listeners.add(listener);
 
-      // Unsubscribe
+      // remove listen
       return () => listeners.delete(listener);
     };
 
